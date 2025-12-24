@@ -20,6 +20,7 @@ services:
     volumes:
       - ./app:/opt/spark-app
       - ./data:/opt/spark-data
+      - ./jars:/opt/spark/jars/extra-jar
     networks:
       - spark-net
 
@@ -58,13 +59,16 @@ services:
       - SPARK_MASTER_PORT=7077
       - SPARK_MASTER_WEBUI_PORT=8080
       - SPARK_PUBLIC_DNS=localhost
-      - SPARK_EXTRA_CLASSPATH=/opt/spark/extra-jars/*
+      - SPARK_EXTRA_CLASSPATH=/opt/spark/jars/extra-jar/*
     volumes:
       - ./notebooks:/opt/spark-notebooks
       - ./data:/opt/spark-data
       - ./app:/opt/spark-app
+      - ./jars:/opt/spark/jars/extra-jar  
     networks:
       - spark-net
+
+
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
