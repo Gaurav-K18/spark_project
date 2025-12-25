@@ -5,7 +5,7 @@ spark = SparkSession.builder \
     .master("spark://spark-master:7077") \
     .config(
         "spark.jars",
-        "/opt/spark/jars/mssql-jdbc-13.2.1.jre11.jar"
+        "/opt/spark/jars/extra-jar/mssql-jdbc-13.2.1.jre11.jar"
     ) \
     .getOrCreate()
 

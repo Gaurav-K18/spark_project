@@ -16,7 +16,7 @@ services:
       - SPARK_MASTER_PORT=7077
       - SPARK_MASTER_WEBUI_PORT=8080
       - SPARK_PUBLIC_DNS=localhost
-      - SPARK_EXTRA_CLASSPATH=/opt/spark/extra-jars/*
+      - SPARK_EXTRA_CLASSPATH=/opt/spark/jars/extra-jar/*
     volumes:
       - ./app:/opt/spark-app
       - ./data:/opt/spark-data
@@ -37,11 +37,11 @@ services:
       - SPARK_MASTER_PORT=7077
       - SPARK_MASTER_WEBUI_PORT=8080
       - SPARK_PUBLIC_DNS=localhost
-      - SPARK_EXTRA_CLASSPATH=/opt/spark/extra-jars/*
+      - SPARK_EXTRA_CLASSPATH=/opt/spark/jars/extra-jar/*
     volumes:
       - ./app:/opt/spark-app
       - ./data:/opt/spark-data
-
+      - ./jars:/opt/spark/jars/extra-jar
     networks:
       - spark-net
 

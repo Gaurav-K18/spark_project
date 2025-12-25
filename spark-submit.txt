@@ -1,0 +1,74 @@
+Why SPARK_EXTRA_CLASSPATH didn’t help
+
+This is the root cause 👇
+
+Your docker-compose:
+SPARK_EXTRA_CLASSPATH=/opt/spark/jars/extra-jar/*
+
+Reality:
+
+Spark does NOT automatically use SPARK_EXTRA_CLASSPATH
+
+Spark only understands:
+
+spark.driver.extraClassPath
+
+spark.executor.extraClassPath
+
+--jars
+
+--driver-class-path
+
+So this env var is ignored by spark-submit
+
+----------------------------------------------------------------------------------------------------
+
+To run the code use the above option to send the jar to the JVM Without that you will get the error 
+java.lang.ClassNotFoundException: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+this is because your spark and container has the jdbc jar file but the JVM where the code run did not have that file 
+to fix this use the option given below to send the jar to the JVM
+
+--jars
+--driver-class-path
+spark.driver.extraClassPath
+spark.executor.extraClassPath
+spark-defaults.conf
+
+----------------------------------------------------------------------------------------------------------------------
+
+SPARK SUBMIT COMMAND
+
+Spark submit command 
+
+🟢 OPTION 1 (BEST): Fix spark-submit command
+Run this instead:
+docker exec -it spark-master \
+  /opt/spark/bin/spark-submit \
+  --jars /opt/spark/jars/extra-jar/mssql-jdbc-13.2.1.jre11.jar \
+  /opt/spark-app/job2.py
+✔ Driver class loaded
+✔ Executors get JAR
+✔ Production-safe
+________________________________________
+🟢 OPTION 2: Use driver + executor classpath explicitly
+docker exec -it spark-master \
+  /opt/spark/bin/spark-submit \
+  --driver-class-path /opt/spark/jars/extra-jar/mssql-jdbc-13.2.1.jre11.jar \
+  --conf spark.executor.extraClassPath=/opt/spark/jars/extra-jar/mssql-jdbc-13.2.1.jre11.jar \
+  /opt/spark-app/job2.py
+________________________________________
+🟢 OPTION 3 (Docker-native, cleanest): spark-defaults.conf ✅
+Create file:
+./conf/spark-defaults.conf
+Add this to file 
+spark.driver.extraClassPath /opt/spark/jars/extra-jar/*
+spark.executor.extraClassPath /opt/spark/jars/extra-jar/*
+Mount it:
+volumes:
+  - ./conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
+Now you can run:
+spark-submit /opt/spark-app/job2.py
+No flags needed 🎯
+
+
