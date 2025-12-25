@@ -21,6 +21,7 @@ services:
       - ./app:/opt/spark-app
       - ./data:/opt/spark-data
       - ./jars:/opt/spark/jars/extra-jar
+      - ./conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
     networks:
       - spark-net
 
@@ -42,6 +43,7 @@ services:
       - ./app:/opt/spark-app
       - ./data:/opt/spark-data
       - ./jars:/opt/spark/jars/extra-jar
+      - ./conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
     networks:
       - spark-net
 
@@ -65,6 +67,7 @@ services:
       - ./data:/opt/spark-data
       - ./app:/opt/spark-app
       - ./jars:/opt/spark/jars/extra-jar  
+      - ./conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
     networks:
       - spark-net
 

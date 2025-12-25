@@ -27,7 +27,10 @@ To run the code use the above option to send the jar to the JVM Without that you
 java.lang.ClassNotFoundException: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
 this is because your spark and container has the jdbc jar file but the JVM where the code run did not have that file 
-to fix this use the option given below to send the jar to the JVM
+to fix this use the option given below to send the jar to the JVM while submting the code.
+IMP NOTE :- YOU HAVE TO explicitly use this while submiting the code in spark-submit command or create config file which is use by 
+spark-submit automatically and no need to write it again and again below option while submiting(WHICH IS
+ 🟢 OPTION 3 (Docker-native, cleanest): spark-defaults.conf ✅)
 
 --jars
 --driver-class-path
