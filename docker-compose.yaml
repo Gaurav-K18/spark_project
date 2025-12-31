@@ -80,9 +80,14 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Gaurav@1804
+    volumes:
+      - sqlserver_data:/var/opt/mssql  
     networks:
       - spark-net
 
 networks:
   spark-net:
     driver: bridge
+
+volumes:
+  sqlserver_data:    

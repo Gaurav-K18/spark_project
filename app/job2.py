@@ -30,3 +30,5 @@ df = spark.read.jdbc(
 
 
 df.show()
+
+spark.stop()

@@ -48,7 +48,7 @@ Spark submit command
 Run this instead:
 docker exec -it spark-master \
   /opt/spark/bin/spark-submit \
-  --jars /opt/spark/jars/extra-jar/mssql-jdbc-13.2.1.jre11.jar \
+  --jars /opt/spark/jars/extra-jar/mssql-jdbc-13.2.1.jre11.jar \aa
   /opt/spark-app/job2.py
 ✔ Driver class loaded
 ✔ Executors get JAR
